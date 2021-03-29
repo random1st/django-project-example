@@ -1,0 +1,40 @@
+version: '3.7'
+
+services:
+  api:
+    hostname: api
+    container_name: api
+    image: api
+    stdin_open: true
+    tty: true
+    build:
+      context: ./src
+      dockerfile: ./Dockerfile
+    entrypoint: ./entrypoint.sh
+    command: ./manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./src/:/src
+    ports:
+      - 8000:8000
+    environment:
+      WAIT_FOR: db:5432
+      DEVELOP: 1
+      MIGRATE: 1
+    depends_on:
+      - db
+
+  db:
+    hostname: db
+    container_name: db
+    image: postgres:11.2-alpine
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+volumes:
+  postgres_data:

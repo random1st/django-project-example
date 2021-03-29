@@ -1,0 +1,26 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pytest = "==5.4.2"
+pylint = "==2.3.1"
+pytest-django = "==3.9.0"
+
+[packages]
+Django = "*"
+psycopg2-binary = "*"
+djangorestframework = "==3.11.2" # drf-yasg restriction
+djangorestframework-jwt= "==1.11.0"
+drf-yasg = "*"
+django-filter = "*"
+pyaml = "*"
+django-health-check = "*"
+python-json-logger = "*"
+sentry_sdk = "*"
+gunicorn = "*"
+pydantic = "*"
+
+[requires]
+python_version = "3.9"

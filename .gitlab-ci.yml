@@ -1,0 +1,30 @@
+image: tiangolo/docker-with-compose
+services:
+  - docker:18.09-dind
+
+
+
+stages:
+  - test
+  - build
+
+
+test:
+  stage: test
+  script:
+    - docker-compose  build
+    - docker-compose  run api /src/run_tests.sh
+    - docker-compose  run api /src/run_pylint.sh
+  only:
+    - merge_requests
+    - master
+
+build:
+  stage: build
+  script:
+    - docker pull  $CI_PROJECT_NAME:$CI_COMMIT_REF_NAME || true
+    - docker build --cache-from $CI_PROJECT_NAME:$CI_COMMIT_REF_NAME  --build-arg VERSION=$CI_COMMIT_REF_NAME-$CI_COMMIT_SHA -t $ECR_REPO_URL/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME .
+    - docker push $ECR_REPO_URL/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME
+  only:
+    - master
+    - tags
