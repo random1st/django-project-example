@@ -1,1 +1,1 @@
-from .viewset import AnimalViewset
+from .viewset import AnimalViewSet

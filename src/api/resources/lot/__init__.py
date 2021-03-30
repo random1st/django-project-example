@@ -1,1 +1,1 @@
-from .viewset import LotViewset
+from .viewset import LotViewset, LotForSaleViewset

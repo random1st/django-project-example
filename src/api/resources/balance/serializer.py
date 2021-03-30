@@ -1,11 +1,10 @@
 from rest_framework import serializers
 
-from db.core.models import UserBalance
 
-
-class UserBalanceSerializer(serializers.ModelSerializer):
-    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
-
-    class Meta:
-        model = UserBalance
-        fields = '__all__'
+class UserBalanceSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+    user = serializers.PrimaryKeyRelatedField(
+        read_only=True,
+        default=serializers.CurrentUserDefault()
+    )
+    balance = serializers.DecimalField(max_digits=12, decimal_places=2)

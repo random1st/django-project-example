@@ -6,7 +6,8 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
-from db.core.models import BaseModel, UUIDPKBaseModel
+from db.core.models import BaseModel
+from operations.errors import UserDoesNotExist
 
 logger = logging.getLogger(__name__)
 
@@ -81,3 +82,12 @@ class BaseUser(BaseModel, AbstractBaseUser, PermissionsMixin):
     @property
     def short_name(self):
         return f"{self.first_name} {self.last_name[:1].capitalize()}."
+
+
+class UserStorage:
+    @staticmethod
+    def get_by_id(user_id):
+        try:
+            return BaseUser.objects.get(id=user_id)
+        except BaseUser.DoesNotExist as e:
+            raise UserDoesNotExist from e

@@ -1,1 +1,1 @@
-from .viewset import BidViewset
+from .viewset import BidViewset, UpdatePriceBidViewset, AcceptBidViewset, LotBidViewset

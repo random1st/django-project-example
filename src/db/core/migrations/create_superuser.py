@@ -2,10 +2,10 @@
 from django.db import migrations
 
 import settings
+from db.core.models import BaseUser
 
 
 def create_superuser(apps, schema_editor):
-    BaseUser = apps.get_model('core', 'BaseUser')
     superuser = BaseUser(
         is_active=True, is_superuser=True, is_staff=True, email=settings.SUPERUSER_EMAIL
     )

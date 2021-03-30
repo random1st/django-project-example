@@ -1,28 +1,25 @@
 from rest_framework import serializers
-from rest_framework.exceptions import PermissionDenied, ValidationError
-
-from db.auction.models import Bid, Lot
 
 
-class BidSerializer(serializers.ModelSerializer):
-    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+class BidSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+    bidder = serializers.PrimaryKeyRelatedField(
+        read_only=True,
+        default=serializers.CurrentUserDefault()
+    )
+    price = serializers.DecimalField(max_digits=12, decimal_places=2)
+    lot = serializers.PrimaryKeyRelatedField(read_only=True)
+    accepted = serializers.NullBooleanField()
 
-    def create(self, validated_data):
-        lot_id = validated_data['lot_id']
-        try:
-            lot = Lot.objects.get(id=lot_id)
-        except Lot.DoesNotExists:
-            raise ValidationError('Unknown lot')
 
-        if lot.bids.filter(accepted=True).exists():
-            raise ValidationError('Auction has already ended')
+class UpdatePriceBidSerializer(serializers.Serializer):
+    price = serializers.DecimalField(max_digits=12, decimal_places=2)
 
-        return super().create(validated_data)
 
-    def update(self, instance, validated_data):
-        if instance.accepted:
-            raise PermissionDenied('Can\'t update already accepted bid')
+class AcceptBidSerializer(serializers.Serializer):
+    pass
 
-    class Meta:
-        model = Bid
-        fields = '__all__'
+
+class LotBidSerializer(serializers.Serializer):
+    price = serializers.DecimalField(max_digits=12, decimal_places=2)
+    lot = serializers.PrimaryKeyRelatedField(read_only=True)
