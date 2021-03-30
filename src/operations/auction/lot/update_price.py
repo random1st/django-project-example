@@ -1,7 +1,7 @@
 from db.auction.models import LotStorage
 from db.core.models import UserStorage
 from operations.errors import InvalidOwnership
-from operations.lot.delete_lot import LotHasBeenSold
+from operations.auction.lot import LotHasBeenSold
 
 
 def update_lot_price(owner_id, bid_id, price):

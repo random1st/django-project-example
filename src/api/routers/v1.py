@@ -1,15 +1,17 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-from api.resources import bid, lot, animal, balance
+from api.resources.user import balance
+from api.resources.animals import animal
+from api.resources.auction import lot, bid
 from api.resources.token import obtain_jwt_token, verify_jwt_token, refresh_jwt_token
 
 router = DefaultRouter()
-router.register('bidder/bid', bid.BidViewset, bid.UpdatePriceBidViewset)
-router.register('owner/bid', bid.AcceptBidViewset)
-router.register('owner/lot', lot.LotViewset)
-router.register('bidder/lot', lot.LotForSaleViewset)
-router.register('owner/animal', animal.AnimalViewSet)
+router.register('auction/bid', bid.BidViewset, bid.UpdatePriceBidViewset)
+router.register('auction/bid', bid.AcceptBidViewset)
+router.register('auction/lot', lot.LotViewset)
+router.register('auction/lot', lot.LotForSaleViewset)
+router.register('animals/animal', animal.AnimalViewSet)
 router.register('user/balance', balance.UserBalanceViewset)
 
 api_urlpatterns = router.urls

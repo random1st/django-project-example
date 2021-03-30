@@ -1,7 +1,7 @@
 from rest_framework import permissions, status, viewsets
 from rest_framework.response import Response
 
-from api.resources.animal.serializer import AnimalSerializer
+from api.resources.animals.animal import AnimalSerializer
 from api.wrapped_errors import wrap_exceptions
 from db.animals.models import Animal
 from operations.animal.create import create_animal

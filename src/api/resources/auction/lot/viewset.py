@@ -1,13 +1,13 @@
 from requests import Response
 from rest_framework import viewsets, permissions, status
 
-from api.resources.lot.serializer import LotSerializer, LotForSaleSerializer
+from api.resources.auction.lot import LotSerializer, LotForSaleSerializer
 from api.wrapped_errors import wrap_exceptions
 from db.auction.models import Lot
-from operations.lot.create_lot import create_lot
+from operations.auction.lot import create_lot
 # Lot owner
-from operations.lot.delete_lot import delete_lot
-from operations.lot.get_my_lots import get_my_lots
+from operations.auction.lot import delete_lot
+from operations.auction.lot import get_my_lots
 
 
 class LotViewset(viewsets.GenericViewSet):

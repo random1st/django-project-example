@@ -1,10 +1,10 @@
 from rest_framework import viewsets, permissions
 from rest_framework.response import Response
 
-from api.resources.balance.serializer import UserBalanceSerializer
+from api.resources.user.balance import UserBalanceSerializer
 from api.wrapped_errors import wrap_exceptions
 from db.core.models import UserBalance
-from operations.balance.get_balance import get_balance
+from operations.user.balance.get_balance import get_balance
 
 
 class UserBalanceViewset(viewsets.GenericViewSet):

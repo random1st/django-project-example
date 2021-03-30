@@ -1,15 +1,15 @@
 from requests import Response
 from rest_framework import viewsets, permissions, status
 
-from api.resources.bid.serializer import BidSerializer, UpdatePriceBidSerializer, AcceptBidSerializer, LotBidSerializer
+from api.resources.auction.bid import BidSerializer, UpdatePriceBidSerializer, AcceptBidSerializer, LotBidSerializer
 from api.wrapped_errors import wrap_exceptions
 from db.auction.models import Bid
-from operations.bid.accept import accept_bid
-from operations.bid.create import create_bid
-from operations.bid.delete import delete_bid
-from operations.bid.get_lots_bids import get_lots_bid
-from operations.bid.get_my_bids import get_my_bids
-from operations.bid.update_price import update_bid_price
+from operations.auction.bid.accept import accept_bid
+from operations.auction.bid.create import create_bid
+from operations.auction.bid.delete import delete_bid
+from operations.auction.bid.get_lots_bids import get_lots_bid
+from operations.auction.bid.get_my_bids import get_my_bids
+from operations.auction.bid.update_price import update_bid_price
 
 
 # Bidder
